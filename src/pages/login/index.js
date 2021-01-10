@@ -12,6 +12,10 @@ const Login = () => {
     const emailErrorMessage = useMemo(() => {
         if (authState.error.errors && authState.error.errors.email)
             return authState.error.errors.email[0];
+
+        if (authState.error.message)
+            return authState.error.message;
+
     }, [authState.error]);
 
     const passwordErrorMessage = useMemo(() => {
