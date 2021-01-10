@@ -12,14 +12,15 @@ export const authReducer = (state, action) => {
                 ...state,
                 loading: false,
                 user: action.payload.user,
-                token: action.payload.token
+                token: action.payload.token,
+                errors: {}
             }
 
         case 'LOGIN_ERROR':
             return {
                 ...state,
                 loading: false,
-                error: action.error
+                errors: action.errors
             }
 
         case 'LOGOUT':
@@ -40,5 +41,5 @@ export const initialState = {
     user: localStorage.getItem('user') || '',
     token: localStorage.getItem('token') || '',
     loading: false,
-    error: {}
+    errors: {}
 };
