@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { useAuthContext } from '../../contexts/auth.context'; 
 import { login } from '../../actions/auth.action';
 
-const Login = () => {
+const Login = (props) => {
     let { authState, authDispatch } = useAuthContext();
 
     let [email, setEmail] = useState('');
@@ -27,13 +27,15 @@ const Login = () => {
     const handleLogin = (e) => {
         e.preventDefault();
         
-       
         login(authDispatch, { email, password })
         .then(() => {
+            props.history.push('/');
             setEmail('');
             setPassword('');
-        });
-      
+        })
+        .catch((error) => {
+            console.log(error)
+        });      
     }
 
     return <div className="container">
