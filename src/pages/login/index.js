@@ -18,31 +18,37 @@ const Login = () => {
         }
     }
 
-    return <>
-        <h1>Login page</h1>
+    return <div className="container">
+        <h1>Sign In</h1>
         <div>
             <form action="" onSubmit={(e) => handleLogin(e)}>
-                <input 
-                    placeholder="email..."
-                    type="email" 
-                    name="email" 
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <input 
-                    placeholder="password..."
-                    type="password" 
-                    name="password" 
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                <button type="submit">Login</button>
+                <div className="form-group">
+                    <input 
+                        className="form-control"
+                        placeholder="email..."
+                        type="email" 
+                        name="email" 
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                </div>
+                <div className="form-group">
+                    <input 
+                        className="form-control"
+                        placeholder="password..."
+                        type="password" 
+                        name="password" 
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </div>
+                <button className="btn btn-primary" type="submit">Login</button>
             </form>
 
         </div>
-    </>
+    </div>
 }
 
 export default Login;
