@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useAuthContext } from '../../contexts/auth.context'; 
 import { login } from '../../actions/auth.action';
 
@@ -8,16 +8,28 @@ const Login = () => {
     let [email, setEmail] = useState('');
     let [password, setPassword] = useState('');
 
-    const handleLogin = async(e) => {
+
+    const emailErrorMessage = useMemo(() => {
+        if (authState.error.errors && authState.error.errors.email)
+            return authState.error.errors.email[0];
+    }, [authState.error]);
+
+    const passwordErrorMessage = useMemo(() => {
+        if (authState.error.errors && authState.error.errors.password)
+            return authState.error.errors.password[0];
+    }, [authState.error]);
+
+
+    const handleLogin = (e) => {
         e.preventDefault();
         
-        try {
-            const response = await login(authDispatch, { email, password });
+       
+        login(authDispatch, { email, password })
+        .then(() => {
             setEmail('');
             setPassword('');
-        } catch (error) {
-            console.log(error)
-        }
+        });
+      
     }
 
     return <div className="container">
@@ -35,7 +47,7 @@ const Login = () => {
                 <div className="form-group">
                     <label htmlFor="email">Email</label>
                     <input 
-                        className={authState.errors.email ? 'form-control is-invalid' : 'form-control'}
+                        className={emailErrorMessage ? 'form-control is-invalid' : 'form-control'}
                         placeholder="email..."
                         type="email" 
                         name="email" 
@@ -44,13 +56,13 @@ const Login = () => {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <div className="invalid-feedback">
-                        {authState.errors.email && authState.errors.email[0]}
+                        {emailErrorMessage}
                     </div>
                 </div>
                 <div className="form-group">
                     <label htmlFor="password">Password</label>
                     <input 
-                        className={authState.errors.password ? 'form-control is-invalid' : 'form-control'}
+                        className={passwordErrorMessage ? 'form-control is-invalid' : 'form-control'}
                         placeholder="password..."
                         type="password" 
                         name="password" 
@@ -59,7 +71,7 @@ const Login = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <div className="invalid-feedback">
-                        {authState.errors.password && authState.errors.password[0]}
+                        {passwordErrorMessage}
                     </div>
                 </div>
                 <button className="btn btn-primary" type="submit">Login</button>
