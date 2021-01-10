@@ -12,7 +12,9 @@ const Login = () => {
         e.preventDefault();
         
         try {
-            const resopnse = await login(authDispatch, { email, password });
+            const response = await login(authDispatch, { email, password });
+            setEmail('');
+            setPassword('');
         } catch (error) {
             console.log(error)
         }
@@ -21,10 +23,19 @@ const Login = () => {
     return <div className="container">
         <h1>Sign In</h1>
         <div>
-            <form action="" onSubmit={(e) => handleLogin(e)}>
+            <form 
+                action="" 
+                onSubmit={(e) => handleLogin(e)}
+                style={{
+                    border: '1px solid lightgrey',
+                    padding: '2rem',
+                    borderRadius: '5px'
+                }}
+            >
                 <div className="form-group">
+                    <label htmlFor="email">Email</label>
                     <input 
-                        className="form-control"
+                        className={authState.errors.email ? 'form-control is-invalid' : 'form-control'}
                         placeholder="email..."
                         type="email" 
                         name="email" 
@@ -32,10 +43,14 @@ const Login = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
+                    <div className="invalid-feedback">
+                        {authState.errors.email && authState.errors.email[0]}
+                    </div>
                 </div>
                 <div className="form-group">
+                    <label htmlFor="password">Password</label>
                     <input 
-                        className="form-control"
+                        className={authState.errors.password ? 'form-control is-invalid' : 'form-control'}
                         placeholder="password..."
                         type="password" 
                         name="password" 
@@ -43,6 +58,9 @@ const Login = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
+                    <div className="invalid-feedback">
+                        {authState.errors.password && authState.errors.password[0]}
+                    </div>
                 </div>
                 <button className="btn btn-primary" type="submit">Login</button>
             </form>
