@@ -11,6 +11,7 @@ import NavigationBar from './components/NavigationBar';
 import Login from './pages/login';
 import Dashboard from './pages/dashboard';
 import NotFound from './pages/error/notfound';
+import Payment from './pages/payment';
 
 const MainLayout = ({ children }) => {
   return (
@@ -50,6 +51,13 @@ function App() {
                     exact
                     path="/"
                     component={Dashboard}
+                    isPrivate={true}
+                  ></AppRoute>
+
+                  <AppRoute
+                    exact
+                    path="/payment"
+                    component={Payment}
                     isPrivate={true}
                   ></AppRoute>
 
