@@ -38,7 +38,7 @@ export const authReducer = (state, action) => {
 }
 
 export const initialState = {
-    user: localStorage.getItem('user') || '',
+    user: (localStorage.getItem('user') && JSON.parse(localStorage.getItem('user'))) || '',
     token: localStorage.getItem('token') || '',
     loading: false,
     error: {}
