@@ -21,3 +21,10 @@ export const login = async(dispatch, { email, password }) => {
     }
 
 }
+
+export const logout = (dispatch) => {
+    localStorage.setItem('token', '');
+    localStorage.setItem('user', '');
+
+    dispatch({type: 'LOGOUT'});
+}

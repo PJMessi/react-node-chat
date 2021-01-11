@@ -1,14 +1,14 @@
 import { Link, NavLink } from 'react-router-dom';
 import { useAuthContext } from '../contexts/auth.context';
+import { logout } from '../actions/auth.action';
 
 const NavigationBar = () => {
 
   const { authState, authDispatch } = useAuthContext();
 
-  const logout = (e) => {
+  const triggerLogout = (e) => {
     e.preventDefault();
-    
-    authDispatch({ type: 'LOGOUT' });
+    logout(authDispatch);
   }
 
   return (
@@ -50,7 +50,7 @@ const NavigationBar = () => {
               {authState.user.name}
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a className="dropdown-item" href="#" onClick={(e) => logout(e)}>Logout</a>
+              <a className="dropdown-item" href="#" onClick={(e) => triggerLogout(e)}>Logout</a>
               {/* <div className="dropdown-divider"></div> */}
             </div>
           </li>
