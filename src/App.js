@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import routes from './route';
 import './App.css';
 import { AuthContextProvider } from './contexts/auth.context';
@@ -8,27 +8,60 @@ import 'jquery/dist/jquery.min.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
 
 import NavigationBar from './components/NavigationBar';
+import Login from './pages/login';
+import Dashboard from './pages/dashboard';
+import NotFound from './pages/error/notfound';
+
+const MainLayout = ({ children }) => {
+  return (
+    <>
+      <NavigationBar />
+      {children}
+    </>
+  );
+};
+
+const AuthLayout = ({ children }) => {
+  return <>{children}</>;
+};
 
 function App() {
   return (
     <div className="App">
       <AuthContextProvider>
-
-        <NavigationBar/>
-
         <Router>
           <Switch>
-            {routes.map((route) => {
-              return (
-                <AppRoute
-                  exact
-                  key={route.path}
-                  path={route.path}
-                  component={route.component}
-                  isPrivate={route.isPrivate}
-                ></AppRoute>
-              );
-            })}
+            <Route path="/login" exact>
+              <AuthLayout>
+                <Switch>
+                  <AppRoute
+                    path="/login"
+                    component={Login}
+                    isPrivate={false}
+                  ></AppRoute>
+                </Switch>
+              </AuthLayout>
+            </Route>
+
+            <Route>
+              <MainLayout>
+                <Switch>
+                  <AppRoute
+                    exact
+                    path="/"
+                    component={Dashboard}
+                    isPrivate={true}
+                  ></AppRoute>
+
+                  <AppRoute
+                    exact
+                    path="*"
+                    component={NotFound}
+                    isPrivate={true}
+                  ></AppRoute>
+                </Switch>
+              </MainLayout>
+            </Route>
           </Switch>
         </Router>
       </AuthContextProvider>

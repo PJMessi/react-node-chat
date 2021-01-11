@@ -29,8 +29,8 @@ const Login = (props) => {
         
         login(authDispatch, { email, password })
         .then(() => {
-            setEmail('');
-            setPassword('');
+            // setEmail('');
+            // setPassword('');
             props.history.push('/');
         })
         .catch((error) => {
