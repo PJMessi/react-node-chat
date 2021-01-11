@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import routes from './route';
 import './App.css';
 import { AuthContextProvider } from './contexts/auth.context';
+import AppRoute from './components/AppRoute';
 
 function App() {
   return (
@@ -11,12 +12,13 @@ function App() {
           <Switch>
             {routes.map((route) => {
               return (
-                <Route
+                <AppRoute
                   exact
                   key={route.path}
                   path={route.path}
                   component={route.component}
-                ></Route>
+                  isPrivate={route.isPrivate}
+                ></AppRoute>
               );
             })}
           </Switch>
