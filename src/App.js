@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import routes from './route';
 import './App.css';
 import { AuthContextProvider } from './contexts/auth.context';
