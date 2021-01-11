@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react';
 import { useAuthContext } from '../../contexts/auth.context'; 
 import { login } from '../../actions/auth.action';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 
 const Login = (props) => {
     let { authState, authDispatch } = useAuthContext();
@@ -80,7 +82,10 @@ const Login = (props) => {
                         {passwordErrorMessage}
                     </div>
                 </div>
-                <button className="btn btn-primary" type="submit">Login</button>
+                <button className="btn btn-primary" type="submit" style={{minWidth: '100px'}}>
+                    { authState.loading ? <FontAwesomeIcon icon={faCircleNotch} className="fa-spin" /> : 'Login' } 
+                    
+                </button>
             </form>
 
         </div>
