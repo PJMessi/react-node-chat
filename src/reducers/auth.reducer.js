@@ -23,6 +23,8 @@ export const authReducer = (state, action) => {
                 error: action.error
             }
 
+
+
         case 'LOGOUT':
             return {
                 ...state,
@@ -30,6 +32,28 @@ export const authReducer = (state, action) => {
                 user: '',
                 token: ''
             }
+
+
+
+        case 'REQUEST_PROFILE_FETCH':
+            return {
+                ...state,
+                loading: true
+            }
+
+        case 'PROFILE_FETCH_SUCCESS':
+            return {
+                ...state,
+                loading: false,
+                user: action.payload
+            }
+
+        case 'PROFILE_FETCH_ERROR':
+            return {
+                ...state,
+                loading: false
+            }
+
 
         default: 
             throw new Error(`Invalid action type: ${action.type}.`);

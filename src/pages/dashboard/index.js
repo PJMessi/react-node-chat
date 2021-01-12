@@ -3,6 +3,7 @@ import MessageBox from './MessageBox';
 import ChatList from './ChatList';
 
 const Dashboard = () => {
+
   return (
     <div>
       <div className="page-content page-container" id="page-content">
