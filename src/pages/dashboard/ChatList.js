@@ -46,40 +46,31 @@ const TheirMessage = ({ message }) => {
 };
 
 const ChatList = () => {
-  let messageBox = useRef(null);
 
+  let messageBox = useRef(null);
   const { authState } = useAuthContext();
   const { messageState, messageDispatch } = useMessageContext();
-
   let [socket, setSocket] = useState(io('http://127.0.0.1:5000/', {
-      query: {
-        token: authState.token
-      }
+      query: { token: authState.token }
   }))
-
   const scrollToBottomOfMessage = () => {
     messageBox.current.scrollTop = messageBox.current.scrollHeight
   }
 
   useEffect(() => {
     scrollToBottomOfMessage();
-
   }, [messageState.messages]);
 
   useEffect(() => {
-
     fetchMessages(messageDispatch)
-    .then(() => {
-      scrollToBottomOfMessage();
-    })
-    .catch((error) => {
-      console.log(error)
-    });
+    .then(() => { scrollToBottomOfMessage(); })
+    .catch((error) => { console.log(error); });
+  }, []);
 
+  useEffect(() => {
     socket.on('chat-message', (message) => {
       insertMessage(messageDispatch, message);
     });
-
   }, []);
 
   const formattedMessages = useMemo(() => {
