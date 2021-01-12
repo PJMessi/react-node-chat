@@ -21,6 +21,20 @@ export const messageReducer = (state, action) => {
                 loading: false
             }
 
+        case 'INSERT_MESSAGE':
+            return {
+                ...state,
+                messages: [action.payload.message, ...state.messages],
+                paginationData: {
+                    count: state.paginationData.count + 1,
+                    lastPage: state.paginationData.lastPage,
+                    currentPage: state.paginationData.currentPage,
+                    from: state.paginationData.from,
+                    perPage: state.paginationData.perPage + 1,
+                    to: state.paginationData.to + 1
+                }
+            };
+
         default:
             throw new Error(`Invalid action type: ${action.type}.`);
     }

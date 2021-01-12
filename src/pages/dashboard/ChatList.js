@@ -1,9 +1,10 @@
-
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { fetchMessages } from "../../actions/message.action";
 import { useMessageContext } from "../../contexts/messages.context";
 import { useAuthContext } from '../../contexts/auth.context';
 import moment from 'moment';
+import io from 'socket.io-client';
+import { insertMessage } from '../../actions/message.action';
 
 const timefilter = (timestamp) => {
   return moment(timestamp).format('MMMM Do YYYY, h:mm a');
@@ -45,14 +46,26 @@ const TheirMessage = ({ message }) => {
 };
 
 const ChatList = () => {
-
   const { authState } = useAuthContext();
   const { messageState, messageDispatch } = useMessageContext();
 
+  let [socket, setSocket] = useState(io('http://127.0.0.1:5000/', {
+      query: {
+        token: authState.token
+      }
+  }))
+
   useEffect(() => {
+
     fetchMessages(messageDispatch).catch((error) => {
       console.log(error)
     });
+
+    socket.on('chat-message', (message) => {
+      console.log(message);
+      insertMessage(messageDispatch, message);
+    });
+
   }, []);
 
   const formattedMessages = useMemo(() => {
@@ -60,6 +73,7 @@ const ChatList = () => {
     if (messages === '') return [];
     return [...messages].reverse();
   }, [messageState.messages]);
+
 
   return (
     <>
