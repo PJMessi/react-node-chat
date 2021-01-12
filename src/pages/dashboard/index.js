@@ -2,8 +2,16 @@ import './dashboard.css';
 import MessageBox from './MessageBox';
 import ChatList from './ChatList';
 import { MessageContextProvider } from "../../contexts/messages.context";
+import io from 'socket.io-client';
+import { useAuthContext } from '../../contexts/auth.context';
+import { useState } from 'react';
 
 const Dashboard = () => {
+  const {authState} = useAuthContext();
+
+  let [socket, setSocket] = useState(io('http://127.0.0.1:5000/', {
+    query: { token: authState.token }
+  }))
 
   return (
     <MessageContextProvider>
@@ -19,9 +27,9 @@ const Dashboard = () => {
                   </h4>
                 </div>
                 
-                <ChatList/>
+                <ChatList socket={socket}/>
 
-                <MessageBox/>
+                <MessageBox socket={socket}/>
 
               </div>
             </div>

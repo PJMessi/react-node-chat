@@ -3,7 +3,6 @@ import { fetchMessages } from "../../actions/message.action";
 import { useMessageContext } from "../../contexts/messages.context";
 import { useAuthContext } from '../../contexts/auth.context';
 import moment from 'moment';
-import io from 'socket.io-client';
 import { insertMessage } from '../../actions/message.action';
 
 const timefilter = (timestamp) => {
@@ -45,14 +44,11 @@ const TheirMessage = ({ message }) => {
   );
 };
 
-const ChatList = () => {
+const ChatList = ({ socket }) => {
 
   let messageBox = useRef(null);
   const { authState } = useAuthContext();
   const { messageState, messageDispatch } = useMessageContext();
-  let [socket, setSocket] = useState(io('http://127.0.0.1:5000/', {
-      query: { token: authState.token }
-  }))
   const scrollToBottomOfMessage = () => {
     messageBox.current.scrollTop = messageBox.current.scrollHeight
   }
