@@ -1,22 +1,41 @@
 import './Dashboard.css';
 import MessageBox from './MessageBox';
 import ChatList from './ChatList';
-import { MessageContextProvider } from "../../contexts/messages.context";
+import { useMessageContext } from "../../contexts/messages.context";
 import io from 'socket.io-client';
 import { useAuthContext } from '../../contexts/auth.context';
-import { useState } from 'react';
+import { useEffect, useRef } from 'react';
 import UserList from './UserList';
-import { UserContextProvider } from '../../contexts/user.context';
+import { insertMessage } from '../../actions/message.action';
+import { updateUserStatus } from '../../actions/user.action';
+import { useUserContext } from '../../contexts/user.context';
 
 const Dashboard = () => {
   const {authState} = useAuthContext();
+  const { userDispatch } = useUserContext();
+  const { messageDispatch } = useMessageContext();
+  const socket = useRef(null);
 
-  let [socket, setSocket] = useState(io('http://127.0.0.1:5000/', {
-    query: { token: authState.token }
-  }))
+  useEffect(() => {
+    socket.current = io('http://127.0.0.1:5000/', {
+      query: { token: authState.token }
+    })
+
+    socket.current.on('chat-message', (message) => {
+      insertMessage(messageDispatch, message);
+    });
+
+    socket.current.on('user-status-change', (user) => {
+      updateUserStatus(userDispatch, user);
+    })
+
+    return () => {
+      socket.current.disconnect();
+    }
+
+  }, [])
 
   return (
-    <MessageContextProvider>
       <div className="page-content page-container" id="page-content">
         <div className="padding">
           <div className="row container d-flex justify-content-center">
@@ -29,9 +48,7 @@ const Dashboard = () => {
                   </h4>
                 </div>
                 <div className="ps-container ps-theme-default ps-active-y pj-chatbox" id="chat-content" >
-                  <UserContextProvider>
-                    <UserList socket={socket}/>
-                  </UserContextProvider>
+                  <UserList />
                 </div>
               </div>
             </div>
@@ -43,15 +60,14 @@ const Dashboard = () => {
                     <strong>Chat</strong>
                   </h4>
                 </div>
-                <ChatList socket={socket}/>
-                <MessageBox socket={socket}/>
+                <ChatList />
+                <MessageBox socket={socket.current} />
               </div>
             </div>
 
           </div>
         </div>
       </div>
-    </MessageContextProvider>
   );
 };
 

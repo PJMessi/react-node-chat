@@ -7,8 +7,8 @@ import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 const Login = (props) => {
     let { authState, authDispatch } = useAuthContext();
 
-    let [email, setEmail] = useState('');
-    let [password, setPassword] = useState('');
+    let [email, setEmail] = useState('pjmessi25@gmail.com');
+    let [password, setPassword] = useState('password');
 
 
     const emailErrorMessage = useMemo(() => {

@@ -1,11 +1,10 @@
-import { useEffect, useMemo, useState, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { fetchMessages } from "../../actions/message.action";
 import { useMessageContext } from "../../contexts/messages.context";
 import { useAuthContext } from '../../contexts/auth.context';
-import { insertMessage } from '../../actions/message.action';
 import { YourMessage, TheirMessage } from './SingleMessage';
 
-const ChatList = ({ socket }) => {
+const ChatList = () => {
 
   let messageBox = useRef(null);
   const { authState } = useAuthContext();
@@ -22,18 +21,15 @@ const ChatList = ({ socket }) => {
     fetchMessages(messageDispatch)
     .then(() => { scrollToBottomOfMessage(); })
     .catch((error) => { console.log(error); });
-  }, []);
-
-  useEffect(() => {
-    socket.on('chat-message', (message) => {
-      insertMessage(messageDispatch, message);
-    });
+    
   }, []);
 
   const formattedMessages = useMemo(() => {
     const messages = messageState.messages;
     if (messages === '') return [];
+
     return [...messages].reverse();
+
   }, [messageState.messages]);
 
 
@@ -50,10 +46,8 @@ const ChatList = ({ socket }) => {
           })
         }
 
-
         {/* <div className="media media-meta-day">Today</div> */}
 
-        
       </div>
     </>
   );
