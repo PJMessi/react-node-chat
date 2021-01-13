@@ -1,5 +1,5 @@
 import { useUserContext } from "../../contexts/user.context";
-import { fetchUsers } from '../../actions/user.action';
+import { fetchUsers, updateUserStatus } from '../../actions/user.action';
 import { useEffect, useMemo } from "react";
 import { useAuthContext } from "../../contexts/auth.context";
 
@@ -7,18 +7,21 @@ const UserList = ({ socket }) => {
 
     const { authState } = useAuthContext();
     const { userState, userDispatch } = useUserContext();
-
+    
     useEffect(() => {
         fetchUsers(userDispatch);
     }, []);
 
+    useEffect(() => {
+        socket.on('user-status-change', (user) => {
+            updateUserStatus(userDispatch, user);
+        })
+    }, []);
+
+
     const filteredUser = useMemo(() => {
         if (userState.users == '') return [];
-
-        return userState.users.filter(user => {
-            return user.uuid !== authState.user.uuid
-        })
-
+        return userState.users.filter(user => user.uuid !== authState.user.uuid)
     }, [userState.users])
 
     return <>

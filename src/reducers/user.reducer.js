@@ -20,6 +20,21 @@ export const userReducer = (state, action) => {
                 loading: false
             }
 
+        case 'UPDATE_USER_STATUS':
+            let users = '';
+            if (state.users != '') {
+                users = state.users.map(user => {
+                    if (user.uuid === action.payload.user.uuid)
+                        user.status = action.payload.user.status;
+                    
+                    return user;
+                })
+            }    
+            return {
+                ...state,
+                users
+            }
+
         default:
             throw new Error(`Invalid action type: ${action.type}.`);
     }

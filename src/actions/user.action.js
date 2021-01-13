@@ -22,3 +22,12 @@ export const fetchUsers = async (dispatch) => {
         throw error;
     }
 }
+
+/**
+ * Updates the status of the user in state.
+ * @param {*} dispatch 
+ * @param {*} user 
+ */
+export const updateUserStatus = (dispatch, user) => {
+    dispatch({ type: 'UPDATE_USER_STATUS', payload: { user } });
+}
