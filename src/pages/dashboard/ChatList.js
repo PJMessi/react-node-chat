@@ -1,50 +1,10 @@
-import { useEffect, useMemo, useState, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { fetchMessages } from "../../actions/message.action";
 import { useMessageContext } from "../../contexts/messages.context";
 import { useAuthContext } from '../../contexts/auth.context';
-import moment from 'moment';
-import { insertMessage } from '../../actions/message.action';
+import { YourMessage, TheirMessage } from './SingleMessage';
 
-const timefilter = (timestamp) => {
-  return moment(timestamp).format('MMMM Do YYYY, h:mm a');
-}
-
-const YourMessage = ({ message }) => {
-  return (
-    <>
-      <div className="media media-chat media-chat-reverse">
-        <div className="media-body">
-          <p>{message.content}</p>
-          <p className="meta" style={{color: 'lightgrey'}}>
-            <time dateTime="2018">{timefilter(message.createdAt)}</time>
-          </p>
-        </div>
-      </div>
-    </>
-  );
-};
-
-const TheirMessage = ({ message }) => {
-  return (
-    <>
-      <div className="media media-chat">
-        <img
-          className="avatar"
-          src="https://img.icons8.com/color/36/000000/administrator-male.png"
-          alt="..."
-        />
-        <div className="media-body">
-          <p>{message.content}</p>
-          <p className="meta">
-            <time dateTime="2018">{timefilter(message.createdAt)}</time>
-          </p>
-        </div>
-      </div>
-    </>
-  );
-};
-
-const ChatList = ({ socket }) => {
+const ChatList = () => {
 
   let messageBox = useRef(null);
   const { authState } = useAuthContext();
@@ -61,18 +21,15 @@ const ChatList = ({ socket }) => {
     fetchMessages(messageDispatch)
     .then(() => { scrollToBottomOfMessage(); })
     .catch((error) => { console.log(error); });
-  }, []);
-
-  useEffect(() => {
-    socket.on('chat-message', (message) => {
-      insertMessage(messageDispatch, message);
-    });
+    
   }, []);
 
   const formattedMessages = useMemo(() => {
     const messages = messageState.messages;
     if (messages === '') return [];
+
     return [...messages].reverse();
+
   }, [messageState.messages]);
 
 
@@ -89,10 +46,8 @@ const ChatList = ({ socket }) => {
           })
         }
 
-
         {/* <div className="media media-meta-day">Today</div> */}
 
-        
       </div>
     </>
   );

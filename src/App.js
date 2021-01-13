@@ -2,15 +2,15 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import { AuthContextProvider } from './contexts/auth.context';
 import AppRoute from './components/AppRoute';
-
 import 'jquery/dist/jquery.min.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
-
 import NavigationBar from './components/NavigationBar';
 import Login from './pages/login';
-import Dashboard from './pages/dashboard';
+import Dashboard from './pages/dashboard/Dashboard';
 import NotFound from './pages/error/notfound';
 import Payment from './pages/payment';
+import { UserContextProvider } from './contexts/user.context';
+import { MessageContextProvider } from './contexts/messages.context';
 
 const MainLayout = ({ children }) => {
   return (
@@ -29,6 +29,9 @@ function App() {
   return (
     <div className="App">
       <AuthContextProvider>
+      <MessageContextProvider>
+      <UserContextProvider>
+
         <Router>
           <Switch>
             <Route path="/login" exact>
@@ -71,6 +74,9 @@ function App() {
             </Route>
           </Switch>
         </Router>
+
+      </UserContextProvider>
+      </MessageContextProvider>
       </AuthContextProvider>
     </div>
   );
