@@ -8,7 +8,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 
 import NavigationBar from './components/NavigationBar';
 import Login from './pages/login';
-import Dashboard from './pages/dashboard';
+import Dashboard from './pages/dashboard/Dashboard';
 import NotFound from './pages/error/notfound';
 import Payment from './pages/payment';
 

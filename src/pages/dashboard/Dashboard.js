@@ -1,4 +1,4 @@
-import './dashboard.css';
+import './Dashboard.css';
 import MessageBox from './MessageBox';
 import ChatList from './ChatList';
 import { MessageContextProvider } from "../../contexts/messages.context";
