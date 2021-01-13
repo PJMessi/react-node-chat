@@ -2,47 +2,8 @@ import { useEffect, useMemo, useState, useRef } from "react";
 import { fetchMessages } from "../../actions/message.action";
 import { useMessageContext } from "../../contexts/messages.context";
 import { useAuthContext } from '../../contexts/auth.context';
-import moment from 'moment';
 import { insertMessage } from '../../actions/message.action';
-
-const timefilter = (timestamp) => {
-  return moment(timestamp).format('MMMM Do YYYY, h:mm a');
-}
-
-const YourMessage = ({ message }) => {
-  return (
-    <>
-      <div className="media media-chat media-chat-reverse">
-        <div className="media-body">
-          <p>{message.content}</p>
-          <p className="meta" style={{color: 'lightgrey'}}>
-            <time dateTime="2018">{timefilter(message.createdAt)}</time>
-          </p>
-        </div>
-      </div>
-    </>
-  );
-};
-
-const TheirMessage = ({ message }) => {
-  return (
-    <>
-      <div className="media media-chat">
-        <img
-          className="avatar"
-          src="https://img.icons8.com/color/36/000000/administrator-male.png"
-          alt="..."
-        />
-        <div className="media-body">
-          <p>{message.content}</p>
-          <p className="meta">
-            <time dateTime="2018">{timefilter(message.createdAt)}</time>
-          </p>
-        </div>
-      </div>
-    </>
-  );
-};
+import { YourMessage, TheirMessage } from './SingleMessage';
 
 const ChatList = ({ socket }) => {
 
