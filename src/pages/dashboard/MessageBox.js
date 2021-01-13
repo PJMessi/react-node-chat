@@ -29,9 +29,9 @@ const MessageBox = ({ socket }) => {
         onChange={(e) => {setMessage(e.target.value)}}
       />
 
-      <a className="publisher-btn text-info" href="#" data-abc="true" onClick={(e) => {emitMessage(e)}}>
+      <button className="publisher-btn text-info" data-abc="true" onClick={(e) => {emitMessage(e)}}>
         <FontAwesomeIcon icon={faPaperPlane} />
-      </a>
+      </button>
       
     </div>
   );

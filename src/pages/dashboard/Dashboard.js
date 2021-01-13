@@ -33,7 +33,7 @@ const Dashboard = () => {
       socket.current.disconnect();
     }
 
-  }, [])
+  }, [messageDispatch, userDispatch, authState.token])
 
   return (
       <div className="page-content page-container" id="page-content">

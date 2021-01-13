@@ -22,7 +22,7 @@ const ChatList = () => {
     .then(() => { scrollToBottomOfMessage(); })
     .catch((error) => { console.log(error); });
     
-  }, []);
+  }, [messageDispatch]);
 
   const formattedMessages = useMemo(() => {
     const messages = messageState.messages;

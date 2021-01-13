@@ -22,7 +22,7 @@ export const userReducer = (state, action) => {
 
         case 'UPDATE_USER_STATUS':
             let users = '';
-            if (state.users != '') {
+            if (state.users !== '') {
                 users = state.users.map(user => {
                     if (user.uuid === action.payload.user.uuid)
                         user.status = action.payload.user.status;

@@ -1,5 +1,5 @@
 import { useUserContext } from "../../contexts/user.context";
-import { fetchUsers, updateUserStatus } from '../../actions/user.action';
+import { fetchUsers } from '../../actions/user.action';
 import { useEffect, useMemo } from "react";
 import { useAuthContext } from "../../contexts/auth.context";
 
@@ -10,12 +10,12 @@ const UserList = () => {
     
     useEffect(() => {
         fetchUsers(userDispatch);
-    }, []);
+    }, [userDispatch]);
 
     const filteredUser = useMemo(() => {
-        if (userState.users == '') return [];
+        if (userState.users === '') return [];
         return userState.users.filter(user => user.uuid !== authState.user.uuid)
-    }, [userState.users])
+    }, [userState.users, authState.user])
 
     return <>
         <ul className="list-group">
@@ -24,7 +24,7 @@ const UserList = () => {
                     return <li key={user.uuid} className="list-group-item">
                         { user.name } 
                         {
-                            user.status == 'ACTIVE' ?
+                            user.status === 'ACTIVE' ?
                                 <span className="badge badge-success float-right" >Online</span> :
                                 <span className="badge badge-secondary float-right" >Offine</span>
                         }

@@ -46,11 +46,17 @@ const NavigationBar = () => {
 
         <ul className="nav navbar-nav navbar-right">
           <li className="nav-item dropdown">
-            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button 
+              className="btn btn-light dropdown-toggle" 
+              id="navbarDropdown" 
+              data-toggle="dropdown" 
+              aria-haspopup="true" 
+              aria-expanded="false"
+            >
               {authState.user.name}
-            </a>
+            </button>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a className="dropdown-item" href="#" onClick={(e) => triggerLogout(e)}>Logout</a>
+              <button className="dropdown-item" href="#" onClick={(e) => triggerLogout(e)}>Logout</button>
               {/* <div className="dropdown-divider"></div> */}
             </div>
           </li>
