@@ -17,7 +17,7 @@ const Dashboard = () => {
   const socket = useRef(null);
 
   useEffect(() => {
-    socket.current = io('http://127.0.0.1:5000/', {
+    socket.current = io(process.env.REACT_APP_API_BASE_URL, {
       query: { token: authState.token }
     })
 
