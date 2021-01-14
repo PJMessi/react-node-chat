@@ -7,7 +7,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import NavigationBar from './components/NavigationBar';
 import Login from './pages/login/Login';
 import Dashboard from './pages/dashboard/Dashboard';
-import NotFound from './pages/error/notfound';
+import NotFound from './pages/error/Notfound';
 import Payment from './pages/payment';
 import { UserContextProvider } from './contexts/user.context';
 import { MessageContextProvider } from './contexts/messages.context';
