@@ -82,12 +82,16 @@ const Login = (props) => {
                         {passwordErrorMessage}
                     </div>
                 </div>
-                <button className="btn btn-primary" type="submit" style={{minWidth: '100px'}}>
+                <button 
+                    className="btn btn-primary" 
+                    type="submit" 
+                    style={{minWidth: '100px'}}
+                    disabled={ authState.loading ? true : false }
+                >
                     { authState.loading ? <FontAwesomeIcon icon={faCircleNotch} className="fa-spin" /> : 'Login' } 
-                    
                 </button>
             </form>
-
+            
         </div>
     </div>
 }
