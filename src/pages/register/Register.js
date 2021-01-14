@@ -1,6 +1,7 @@
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { createUser } from "../../actions/user.action";
 import { useAuthContext } from "../../contexts/auth.context";
 import { useUserContext } from "../../contexts/user.context";
@@ -131,6 +132,7 @@ const Register = (props) => {
                 >
                     { authState.loading ? <FontAwesomeIcon icon={faCircleNotch} className="fa-spin" /> : 'Register' } 
                 </button>
+                <Link to="/login" className="btn btn-link float-right">Login to an existing account?</Link>
             </form>
             
         </div>

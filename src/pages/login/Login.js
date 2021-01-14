@@ -3,6 +3,7 @@ import { useAuthContext } from '../../contexts/auth.context';
 import { login } from '../../actions/auth.action';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 const Login = (props) => {
     let { authState, authDispatch } = useAuthContext();
@@ -90,6 +91,7 @@ const Login = (props) => {
                 >
                     { authState.loading ? <FontAwesomeIcon icon={faCircleNotch} className="fa-spin" /> : 'Login' } 
                 </button>
+                <Link to="/register" className="btn btn-link float-right">Create new account?</Link>
             </form>
             
         </div>
