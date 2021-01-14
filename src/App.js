@@ -11,6 +11,7 @@ import NotFound from './pages/error/notfound';
 import Payment from './pages/payment';
 import { UserContextProvider } from './contexts/user.context';
 import { MessageContextProvider } from './contexts/messages.context';
+import Register from './pages/register/Register';
 
 const MainLayout = ({ children }) => {
   return (
@@ -34,14 +35,23 @@ function App() {
 
         <Router>
           <Switch>
-            <Route path="/login" exact>
+            <Route path="/(login|register)/" exact>
               <AuthLayout>
                 <Switch>
+
                   <AppRoute
                     path="/login"
                     component={Login}
                     isPrivate={false}
                   ></AppRoute>
+
+                  <AppRoute
+                    path="/register"
+                    component={Register}
+                    isPrivate={false}
+                  ></AppRoute>
+
+
                 </Switch>
               </AuthLayout>
             </Route>

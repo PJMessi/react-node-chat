@@ -20,6 +20,10 @@ const AppRoute = ({ component: Component, path, isPrivate, ...rest }) => {
                     return <Redirect to={{ pathname: '/' }}/>
                 }
 
+                if (path === '/register' && authState.user) {
+                    return <Redirect to={{ pathname: '/' }}/>
+                }
+
                 return <Component {...props}/>
 
             }}

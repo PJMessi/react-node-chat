@@ -15,7 +15,7 @@ export const fetchUsers = async (dispatch) => {
 
         const { data: users } = response.data;
 
-        dispatch({type: 'USERS_FETCH_SUCCESS', payload: { users }})
+        dispatch({type: 'USERS_FETCH_SUCCESS', payload: { users }});
 
     } catch (error) {
         dispatch({ type: 'USERS_FETCH_ERROR' });
@@ -30,4 +30,29 @@ export const fetchUsers = async (dispatch) => {
  */
 export const updateUserStatus = (dispatch, user) => {
     dispatch({ type: 'UPDATE_USER_STATUS', payload: { user } });
+}
+
+/**
+ * Calls API to create new user.
+ * Update the state.
+ * @param {*} dispatch 
+ * @param {*} param1 
+ */
+export const createUser = async (dispatch, { email, name, password, passwordConfirmation }) => {
+    dispatch({ type: 'REQUEST_USER_CREATE' });
+
+    try {
+        // const response = await axios.post(`${API_BASE_URL}/users`);
+        // const { data: user } = response.data;
+
+        await axios.post(`${API_BASE_URL}/users`, {
+            email, name, password, password_confirmation: passwordConfirmation
+        });
+
+        dispatch({type: 'USER_CREATE_SUCCESS'})
+
+    } catch (error) {
+        dispatch({ type: 'USER_CREATE_ERROR', error: error.response.data });
+        throw error;
+    }
 }
