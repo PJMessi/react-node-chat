@@ -18,11 +18,16 @@ You can find the frontend made in [Vue Js](https://vuejs.org/) from this link: [
 ## Additional features
 1. Welcome email for new user.
 
-## Chat demo
+## Demo
+
+[React frontend demo on heroku](https://pjmessi-react-chat.herokuapp.com/)   
+[Nodejs express backend demo on heroku](https://github.com/PJMessi/node-chat)
+
+## Chat demo gif
 
 ![Chat demo](chat-demo.gif "Chat demo")
 
-## User status demo
+## User status demo gif
 
 ![User status demo](user-status-demo.gif "User status demo")
 
