@@ -8,10 +8,15 @@ import NavigationBar from './components/NavigationBar';
 import Login from './pages/login/Login';
 import Dashboard from './pages/dashboard/Dashboard';
 import NotFound from './pages/error/Notfound';
-import Payment from './pages/payment';
+import Payment from './pages/payment/Payment';
 import { UserContextProvider } from './contexts/user.context';
 import { MessageContextProvider } from './contexts/messages.context';
 import Register from './pages/register/Register';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import { PaymentContextProvider } from './contexts/payment.context';
+
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
 const MainLayout = ({ children }) => {
   return (
@@ -32,6 +37,8 @@ function App() {
       <AuthContextProvider>
       <MessageContextProvider>
       <UserContextProvider>
+      <PaymentContextProvider>
+      <Elements stripe={stripePromise}>
 
         <Router>
           <Switch>
@@ -85,6 +92,8 @@ function App() {
           </Switch>
         </Router>
 
+      </Elements>
+      </PaymentContextProvider>
       </UserContextProvider>
       </MessageContextProvider>
       </AuthContextProvider>
