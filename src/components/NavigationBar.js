@@ -2,7 +2,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { useAuthContext } from '../contexts/auth.context';
 import { logout } from '../actions/auth.action';
 
-const NavigationBar = () => {
+const NavigationBar = (props) => {
 
   const { authState, authDispatch } = useAuthContext();
 

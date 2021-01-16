@@ -1,101 +1,43 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import './App.css';
 import { AuthContextProvider } from './contexts/auth.context';
-import AppRoute from './components/AppRoute';
-import 'jquery/dist/jquery.min.js';
-import 'bootstrap/dist/js/bootstrap.min.js';
-import NavigationBar from './components/NavigationBar';
-import Login from './pages/login/Login';
-import Dashboard from './pages/dashboard/Dashboard';
-import NotFound from './pages/error/Notfound';
-import Payment from './pages/payment/Payment';
 import { UserContextProvider } from './contexts/user.context';
 import { MessageContextProvider } from './contexts/messages.context';
-import Register from './pages/register/Register';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { PaymentContextProvider } from './contexts/payment.context';
+import AuthLayout from './components/AuthLayout';
+import MainLayout from './components/MainLayout';
+import './App.css';
+import 'jquery/dist/jquery.min.js';
+import 'bootstrap/dist/js/bootstrap.min.js';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
-
-const MainLayout = ({ children }) => {
-  return (
-    <>
-      <NavigationBar />
-      {children}
-    </>
-  );
-};
-
-const AuthLayout = ({ children }) => {
-  return <>{children}</>;
-};
 
 function App() {
   return (
     <div className="App">
       <AuthContextProvider>
-      <MessageContextProvider>
-      <UserContextProvider>
-      <PaymentContextProvider>
-      <Elements stripe={stripePromise}>
+        <MessageContextProvider>
+          <UserContextProvider>
+            <PaymentContextProvider>
+              <Elements stripe={stripePromise}>
+                <Router>
+                  <Switch>
 
-        <Router>
-          <Switch>
-            <Route path="/(login|register)/" exact>
-              <AuthLayout>
-                <Switch>
+                    <Route path="/(login|register)/" exact>
+                      <AuthLayout></AuthLayout>
+                    </Route>
 
-                  <AppRoute
-                    path="/login"
-                    component={Login}
-                    isPrivate={false}
-                  ></AppRoute>
+                    <Route>
+                      <MainLayout></MainLayout>
+                    </Route>
 
-                  <AppRoute
-                    path="/register"
-                    component={Register}
-                    isPrivate={false}
-                  ></AppRoute>
-
-
-                </Switch>
-              </AuthLayout>
-            </Route>
-
-            <Route>
-              <MainLayout>
-                <Switch>
-                  <AppRoute
-                    exact
-                    path="/"
-                    component={Dashboard}
-                    isPrivate={true}
-                  ></AppRoute>
-
-                  <AppRoute
-                    exact
-                    path="/payment"
-                    component={Payment}
-                    isPrivate={true}
-                  ></AppRoute>
-
-                  <AppRoute
-                    exact
-                    path="*"
-                    component={NotFound}
-                    isPrivate={true}
-                  ></AppRoute>
-                </Switch>
-              </MainLayout>
-            </Route>
-          </Switch>
-        </Router>
-
-      </Elements>
-      </PaymentContextProvider>
-      </UserContextProvider>
-      </MessageContextProvider>
+                  </Switch>
+                </Router>
+              </Elements>
+            </PaymentContextProvider>
+          </UserContextProvider>
+        </MessageContextProvider>
       </AuthContextProvider>
     </div>
   );

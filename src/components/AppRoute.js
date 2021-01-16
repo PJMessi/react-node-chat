@@ -2,6 +2,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { useAuthContext } from '../contexts/auth.context';
 
 const AppRoute = ({ component: Component, path, isPrivate, ...rest }) => {
+
     let { authState } = useAuthContext();
 
     return (
@@ -24,7 +25,7 @@ const AppRoute = ({ component: Component, path, isPrivate, ...rest }) => {
                     return <Redirect to={{ pathname: '/' }}/>
                 }
 
-                return <Component {...props}/>
+                return <Component socket={rest.socket} {...props}/>
 
             }}
 

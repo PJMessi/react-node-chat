@@ -1,40 +1,10 @@
 import './Dashboard.css';
 import MessageBox from './MessageBox';
 import ChatList from './ChatList';
-import { useMessageContext } from "../../contexts/messages.context";
-import io from 'socket.io-client';
-import { useAuthContext } from '../../contexts/auth.context';
-import { useEffect, useRef } from 'react';
 import UserList from './UserList';
-import { insertMessage } from '../../actions/message.action';
-import { updateUserStatus } from '../../actions/user.action';
-import { useUserContext } from '../../contexts/user.context';
 
-const Dashboard = () => {
-  const {authState} = useAuthContext();
-  const { userDispatch } = useUserContext();
-  const { messageDispatch } = useMessageContext();
-  const socket = useRef(null);
-
-  useEffect(() => {
-    socket.current = io(process.env.REACT_APP_API_BASE_URL, {
-      query: { token: authState.token }
-    })
-
-    socket.current.on('chat-message', (message) => {
-      insertMessage(messageDispatch, message);
-    });
-
-    socket.current.on('user-status-change', (user) => {
-      updateUserStatus(userDispatch, user);
-    })
-
-    return () => {
-      socket.current.disconnect();
-    }
-
-  }, [messageDispatch, userDispatch, authState.token])
-
+const Dashboard = ({ socket }) => {
+  
   return (
       <div className="page-content page-container" id="page-content">
         <div className="padding">
@@ -61,7 +31,7 @@ const Dashboard = () => {
                   </h4>
                 </div>
                 <ChatList />
-                <MessageBox socket={socket.current} />
+                <MessageBox socket={socket} />
               </div>
             </div>
 
