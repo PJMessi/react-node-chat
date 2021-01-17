@@ -3,11 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createUser } from '../../actions/user.action';
-import { useAuthContext } from '../../contexts/auth.context';
 import { useUserContext } from '../../contexts/user.context';
 
 const Register = (props) => {
-  let { authState } = useAuthContext();
   let { userState, userDispatch } = useUserContext();
 
   let [name, setName] = useState('');
@@ -149,11 +147,6 @@ const Register = (props) => {
                           'Register'
                         )}
                       </button>
-                      <div className="callout">
-                        <span>
-                          Already a member? <Link to="/login">Sign In</Link>
-                        </span>
-                      </div>
                     </form>
                   </div>
                 </div>
@@ -170,7 +163,7 @@ const Register = (props) => {
                     personal info.
                   </p>
                   <Link to="/login" className="btn button">
-                    Sign In
+                    Login
                   </Link>
                 </div>
               </div>

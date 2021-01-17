@@ -1,10 +1,9 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 const MessageBox = ({ socket }) => {
 
   const [message, setMessage] = useState('');
+  const submitButton = useRef(null);
 
   const emitMessage = async(e) => {
     e.preventDefault();
@@ -13,28 +12,42 @@ const MessageBox = ({ socket }) => {
     setMessage('');
   }
 
-  return (
-    <div className="publisher bt-1 border-light">
-      <img
-        className="avatar avatar-xs"
-        src="https://img.icons8.com/color/36/000000/administrator-male.png"
-        alt="..."
-      />
+  const handleMessageBoxChange = (e) => {
+    if (e.key == 'Enter') {
+      alert();
 
-      <input
-        className="publisher-input"
-        type="text"
-        placeholder="Write something"
-        value={message}
-        onChange={(e) => {setMessage(e.target.value)}}
-      />
+    } else {
+      setMessage(e.target.value);
+    }
+  }
 
-      <button className="publisher-btn text-info" data-abc="true" onClick={(e) => {emitMessage(e)}}>
-        <FontAwesomeIcon icon={faPaperPlane} />
-      </button>
-      
+  return <>
+    <div className="container">
+      <div className="col-md-12">
+        <div className="bottom">
+          <form className="position-relative w-100" onSubmit={(e) => {emitMessage(e)}}>
+
+            <textarea 
+              className="form-control" 
+              placeholder="Start typing for reply..." 
+              type="text"
+              value={message} 
+              onChange={(e) => {setMessage(e.target.value)}} 
+            />
+
+            <button 
+              ref={submitButton}
+              type="submit" 
+              className="btn send"
+            >
+              <i className="material-icons">send</i>
+            </button>
+
+          </form>
+        </div>
+      </div>
     </div>
-  );
+  </>
 };
 
 export default MessageBox;

@@ -66,7 +66,6 @@ const Login = (props) => {
                   <div className="form-group">
                     <input
                       type="password"
-                      id="inputPassword"
                       className={
                         passwordErrorMessage
                           ? 'form-control is-invalid'
@@ -74,7 +73,6 @@ const Login = (props) => {
                       }
                       placeholder="Password"
                       required
-                      id="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                     />
@@ -96,14 +94,6 @@ const Login = (props) => {
                       'Login'
                     )}
                   </button>
-
-                  <div className="callout">
-                    <span>
-                      Don't have account?{' '}
-                      <a href="sign-up.html">Create Account</a>
-                    </span>
-                  </div>
-
                 </form>
               </div>
             </div>
@@ -121,7 +111,7 @@ const Login = (props) => {
                 today.
               </p>
               <Link to="/register" className="btn button">
-                Sign Up
+                Register
               </Link>
             </div>
           </div>

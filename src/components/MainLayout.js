@@ -6,7 +6,6 @@ import { useAuthContext } from "../contexts/auth.context";
 import { useMessageContext } from "../contexts/messages.context";
 import { useUserContext } from "../contexts/user.context";
 import AppRoute from "./AppRoute";
-import NavigationBar from "./NavigationBar";
 import io from 'socket.io-client';
 import Dashboard from '../pages/dashboard/Dashboard';
 import Payment from '../pages/payment/Payment';
@@ -52,36 +51,39 @@ const MainLayout = () => {
     };
   }, [messageDispatch, userDispatch, authState.token]);
 
-  return (
-    <>
-      <NavigationBar />
-      <Switch>
-        <AppRoute
-          exact
-          path="/"
-          component={Dashboard}
-          isPrivate={true}
-          socket={socket.current}
-        ></AppRoute>
+  return <> 
+    <main>
+			<div className="layout">
 
-        <AppRoute
-          exact
-          path="/payment"
-          component={Payment}
-          isPrivate={true}
-          socket={socket.current}
-        ></AppRoute>
+        <Switch>
+          <AppRoute
+            exact
+            path="/"
+            component={Dashboard}
+            isPrivate={true}
+            socket={socket.current}
+          ></AppRoute>
 
-        <AppRoute
-          exact
-          path="*"
-          component={NotFound}
-          isPrivate={true}
-          socket={socket.current}
-        ></AppRoute>
-      </Switch>
-    </>
-  );
+          <AppRoute
+            exact
+            path="/payment"
+            component={Payment}
+            isPrivate={true}
+            socket={socket.current}
+          ></AppRoute>
+
+          <AppRoute
+            exact
+            path="*"
+            component={NotFound}
+            isPrivate={true}
+            socket={socket.current}
+          ></AppRoute>
+        </Switch>
+        
+			</div>
+		</main>
+  </>
 };
 
 export default MainLayout;

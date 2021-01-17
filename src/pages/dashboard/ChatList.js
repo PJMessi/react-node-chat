@@ -32,25 +32,22 @@ const ChatList = () => {
 
   }, [messageState.messages]);
 
-
-  return (
-    <>
-      <div className="ps-container ps-theme-default ps-active-y pj-chatbox" id="chat-content" ref={messageBox} >
-
-        {
-          formattedMessages.map(message => {
-            if (message.user.uuid === authState.user.uuid) {
-              return <YourMessage key={message.uuid} message={message}/>
-            }
-            return <TheirMessage key={message.uuid} message={message}/>
-          })
-        }
-
-        {/* <div className="media media-meta-day">Today</div> */}
-
+  return <>
+    <div className="content" id="content" ref={messageBox}>
+      <div className="container">
+        <div className="col-md-12">
+          {
+            formattedMessages.map(message => {
+              if (message.user.uuid === authState.user.uuid) {
+                return <YourMessage key={message.uuid} message={message}/>
+              }
+              return <TheirMessage key={message.uuid} message={message}/>
+            })
+          }
+        </div>
       </div>
-    </>
-  );
+    </div>
+  </>
 };
 
 export default ChatList;
