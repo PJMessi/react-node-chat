@@ -2,8 +2,8 @@ import { useAuthContext } from '../../contexts/auth.context';
 import { logout } from '../../actions/auth.action';
 import UserList from './UserList';
 
-const NavigationBar = (props) => {
-  const { authDispatch } = useAuthContext();
+const NavigationBar = () => {
+  const { authState, authDispatch } = useAuthContext();
 
   const triggerLogout = (e) => {
     e.preventDefault();
@@ -20,7 +20,8 @@ const NavigationBar = (props) => {
               <img
                 className="avatar-xl"
                 src="dist/img/avatars/avatar-male-1.jpg"
-                alt="avatar"
+                alt={authState.user.name}
+                title={authState.user.name}
               />
             </button>
 

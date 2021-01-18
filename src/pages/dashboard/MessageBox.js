@@ -12,19 +12,12 @@ const MessageBox = ({ socket }) => {
     setMessage('');
   }
 
-  const handleMessageBoxChange = (e) => {
-    if (e.key == 'Enter') {
-      alert();
-
-    } else {
-      setMessage(e.target.value);
-    }
-  }
-
   return <>
     <div className="container">
       <div className="col-md-12">
+        
         <div className="bottom">
+
           <form className="position-relative w-100" onSubmit={(e) => {emitMessage(e)}}>
 
             <textarea 
@@ -44,6 +37,7 @@ const MessageBox = ({ socket }) => {
             </button>
 
           </form>
+        
         </div>
       </div>
     </div>
